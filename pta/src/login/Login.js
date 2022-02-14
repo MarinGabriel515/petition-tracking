@@ -2,16 +2,60 @@ import React from "react";
 import carouselImage1 from "../resources/sltg3.gif";
 import carouselImage2 from "../resources/sltg4.gif";
 import carouselImage3 from "../resources/sltg.gif";
-import logo from "../resources/logo.PNG"
+import PortalCard from "./PortalCard";
+import LoginCard from "./LoginCard";
+import SignInCard from "./SignInCard";
 
 export default class Login extends React.Component{
 
     constructor(props)
     {
         super(props)
+        this.loginPress=this.loginPress.bind(this)
+        this.signinPress=this.signinPress.bind(this)
+        this.backPress=this.backPress.bind(this)
         this.state={
-            carouselImageNumber:Math.floor(Math.random() * 3)
+            carouselImageNumber:Math.floor(Math.random() * 3),
+            portalVisible:true,
+            loginVisible:false,
+            signinVisible:false
         }
+    }
+
+    setPortalVisible(value)
+    {
+        this.setState({portalVisible:value})
+    }
+
+    setLoginVisible(value)
+    {
+        this.setState({loginVisible:value});
+    }
+
+    setSigninVisible(value)
+    {
+        this.setState({signinVisible:value});
+    }
+
+    loginPress()
+    {
+        this.setPortalVisible(false);
+        this.setLoginVisible(true)
+        this.setSigninVisible(false)
+    }
+
+    signinPress()
+    {
+        this.setPortalVisible(false);
+        this.setSigninVisible(true)
+        this.setLoginVisible(false)
+    }
+
+    backPress()
+    {
+        this.setPortalVisible(true)
+        this.setLoginVisible(false)
+        this.setSigninVisible(false)
     }
 
     render()
@@ -32,13 +76,8 @@ export default class Login extends React.Component{
                     <img style={styles.image} src={renderedCarouselImage} alt="Carousel img"/>
                 </div> 
                 <div style={styles.rightContainer}>
-                    <div style={styles.welcomeContainer}>
-                        <img style={styles.logo} src={logo} alt="logo img"/>
-                        <h2 style={styles.welcomeText}>Welcome to PTA!</h2>
-                        <button style={styles.buttonSignIn}>Sign In</button><br></br>
-                        <button style={styles.buttonLogIn}>Log In</button>
-                    </div>
-                </div>          
+                    {this.state.portalVisible ? <PortalCard loginCallback={this.loginPress} signinCallback={this.signinPress}/> : this.state.loginVisible ? <LoginCard backCallback={this.backPress}/> : <SignInCard backCallback={this.backPress}/>}
+                </div>     
             </div>
         );
     }
