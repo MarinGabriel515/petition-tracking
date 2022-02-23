@@ -6,6 +6,25 @@ export default class LoginCard extends React.Component{
 constructor(props)
 {
     super(props)
+    this.handleUsernameChange=this.handleUsernameChange.bind(this)
+    this.handlePasswordChange=this.handlePasswordChange.bind(this)
+    this.handleLogin=this.handleLogin.bind(this)
+    this.state={
+        username:"",
+        password:""
+    }
+}
+
+handleUsernameChange(event) {
+    this.setState({username: event.target.value});
+  }
+
+handlePasswordChange(event) {
+    this.setState({password: event.target.value});
+}
+
+handleLogin(){
+    this.props.attemptLoginCallback(this.state.username,this.state.password)
 }
 
 render()
@@ -15,11 +34,12 @@ render()
             <img style={styles.logo} src={logo} alt="logo img" />
             <h2 style={styles.labels}>Please enter your credentials</h2>
             <form style={styles.form}>
-                    <input style={styles.inputs} placeholder="Username" type="text" name="username" /><br></br>
-                    <input style={styles.inputs}placeholder="Password" type="password" name="password" /><br></br>
-                <input style={styles.buttons} type="submit" value="Login" /><br></br>
+                    <input style={styles.inputs} placeholder="Username" type="text" name="username" value={this.state.username} onChange={this.handleUsernameChange} /><br></br>
+                    <input style={styles.inputs}placeholder="Password" type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange}/><br></br>
             </form>
-            <button style={styles.buttons}>Back</button>
+            <button style={styles.buttons} onClick={this.handleLogin}>Login</button><br></br>
+            <button style={styles.buttons} onClick={this.props.backCallback} >Back</button>
+
         </div>
     )
 }

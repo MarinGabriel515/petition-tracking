@@ -14,6 +14,8 @@ export default class Login extends React.Component{
         this.loginPress=this.loginPress.bind(this)
         this.signinPress=this.signinPress.bind(this)
         this.backPress=this.backPress.bind(this)
+        this.attemptLogin=this.attemptLogin.bind(this)
+        this.attemptSignin=this.attemptSignin.bind(this)
         this.state={
             carouselImageNumber:Math.floor(Math.random() * 3),
             portalVisible:true,
@@ -53,9 +55,20 @@ export default class Login extends React.Component{
 
     backPress()
     {
-        this.setPortalVisible(true)
         this.setLoginVisible(false)
         this.setSigninVisible(false)
+        this.setPortalVisible(true)
+        
+    }
+
+    attemptLogin(username,password)
+    {
+        console.log(username+" "+password+" login ok")
+    }
+
+    attemptSignin(username,password)
+    {
+        console.log(username+" "+password+" signin ok")
     }
 
     render()
@@ -76,7 +89,7 @@ export default class Login extends React.Component{
                     <img style={styles.image} src={renderedCarouselImage} alt="Carousel img"/>
                 </div> 
                 <div style={styles.rightContainer}>
-                    {this.state.portalVisible ? <PortalCard loginCallback={this.loginPress} signinCallback={this.signinPress}/> : this.state.loginVisible ? <LoginCard backCallback={this.backPress}/> : <SignInCard backCallback={this.backPress}/>}
+                    {this.state.portalVisible ? <PortalCard loginCallback={this.loginPress} signinCallback={this.signinPress}/> : this.state.loginVisible ? <LoginCard backCallback={this.backPress} attemptLoginCallback={this.attemptLogin}/> : <SignInCard backCallback={this.backPress} attemptSigninCallback={this.attemptSignin}/>}
                 </div>     
             </div>
         );
