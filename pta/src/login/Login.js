@@ -16,6 +16,8 @@ export default class Login extends React.Component{
         this.backPress=this.backPress.bind(this)
         this.attemptLogin=this.attemptLogin.bind(this)
         this.attemptSignin=this.attemptSignin.bind(this)
+        this.handleBeginRegister=this.handleBeginRegister.bind(this)
+
         this.state={
             carouselImageNumber:Math.floor(Math.random() * 3),
             portalVisible:true,
@@ -63,12 +65,27 @@ export default class Login extends React.Component{
 
     attemptLogin(username,password)
     {
-        console.log(username+" "+password+" login ok")
+        if(username=="Kratos"&&password=="GOW")
+        {
+            console.log("Login ok")
+            this.props.loginOk()
+        }
+        else
+        {
+            console.log("Login not ok")
+        }
+        //console.log(username+" "+password+" login ok")
     }
 
     attemptSignin(username,password)
     {
         console.log(username+" "+password+" signin ok")
+        this.props.beginRegister()
+    }
+
+    handleBeginRegister()
+    {
+        this.props.beginRegister()
     }
 
     render()
